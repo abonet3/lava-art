@@ -1,22 +1,32 @@
 function setup() {
   createCanvas(800, 800);
-  background(240);
-  stroke(0, 80);
-  noFill();
+  noLoop();
+  background(255);
 
-  let rings = 8;
-  let sectors = 16;
-  let maxR = width / 2 - 40;
+  let size = 60; // tamaño de cada cubo
+  let w = sqrt(3) * size; // ancho hexagonal
+  let h = 2 * size;       // alto hexagonal
 
-  translate(width / 2, height / 2);
-
-  for (let i = 1; i <= rings; i++) {
-    let r = (i / rings) * maxR;
-    ellipse(0, 0, r * 2);
-  }
-
-  for (let j = 0; j < sectors; j++) {
-    let a = (TWO_PI / sectors) * j;
-    line(0, 0, cos(a) * maxR, sin(a) * maxR);
+  for (let y = 0; y < height + h; y += size * 1.5) {
+    for (let x = 0; x < width + w; x += w) {
+      let offset = (int(y / (size * 1.5)) % 2 === 0) ? 0 : w / 2;
+      drawCube(x + offset, y, size);
+    }
   }
 }
+
+function drawCube(x, y, s) {
+  let w = sqrt(3) * s / 2;
+
+  // Coordenadas de los 3 rombos
+  let top    = [[0, -s], [w, -s/2], [0, 0], [-w, -s/2]];
+  let left   = [[-w, -s/2], [0, 0], [0, s], [-w, s/2]];
+  let right  = [[w, -s/2], [0, 0], [0, s], [w, s/2]];
+
+  push();
+  translate(x, y);
+
+  noStroke();
+
+  // colores en escala de grises como en la imagen
+  fill(200); beginShape(); for (let p of top) vertex(p[0], p[1]); endShape(CL
