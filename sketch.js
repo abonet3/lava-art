@@ -29,4 +29,9 @@ function drawCube(x, y, s) {
   noStroke();
 
   // colores en escala de grises como en la imagen
-  fill(200); beginShape(); for (let p of top) vertex(p[0], p[1]); endShape(CL
+  fill(200); beginShape(); for (let p of top) vertex(p[0], p[1]); endShape(CLOSE);
+  fill(100); beginShape(); for (let p of left) vertex(p[0], p[1]); endShape(CLOSE);
+  fill(150); beginShape(); for (let p of right) vertex(p[0], p[1]); endShape(CLOSE);
+
+  pop();
+}
